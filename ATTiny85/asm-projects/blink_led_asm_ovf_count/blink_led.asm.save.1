@@ -1,0 +1,65 @@
+;         ________
+;   PB5  |_  \/  _| vcc
+;   PB3  |_      _| PB2/SCL/SCK
+;   PB4  |_      _| PB1
+;   GND  |_      _| PB0/SDA
+;        | ______ |
+
+.nolist
+.include "tn85def.inc"
+.list
+
+.def overflows = R17
+
+.org 0x0000
+rjmp main
+
+.org 0x0005    ;TIMER0_OVF
+rjmp overflow_handler
+
+main:
+
+  ldi r16, low(RAMEND)
+  out SPL, r16
+
+  ldi  R16,   (1 << PB2) | (1 << PB0)  ;Pino zero e dois como 'output'
+  out  DDRB,  R16
+
+  clr  R16
+  ldi  R16,  (1 << CS02) | (1 << CS01)
+  out  TCCR0B, R16      ; Inicia o registrado contolador do Timer0
+
+  clr  R16
+  ldi  R16, (1 << TOIE0)
+  out  TIMSK, R16      ; habilita interrupcao overflow do timer 0
+
+  ldi 	R16, 0
+  out   TCNT0, R16  ;inicia o contador com zero
+
+  clr   overflows   ;inicia overflows com zero
+  sei  		    ;habilita interrupcoes globai
+
+
+loop:
+   compare_overflows:
+	cpi overflows, 200
+        breq toggle_led
+        rjmp loop
+
+toggle_led:
+   ;sbic PORTB, PB0
+   ;cbi  PORTB, PB0
+   ;sbis PORTB, PB0
+   ;sbi  PORTB, PB0
+   sbi 
+PORTB, PB0	
+
+   clr overflows
+   clr R16
+   out TCNT0, R16
+   ret
+
+
+overflow_handler:
+   inc overflows
+   reti	
