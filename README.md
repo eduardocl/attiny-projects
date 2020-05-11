@@ -16,7 +16,7 @@ Dois vídeos que ensinam a fazer um programador utiluzando o Arduino Nano e o UN
 
 ### 1. ASM Projects
 
- O objetivo dos projetos aqui é estudar a linguagem assembly dos chips AVR, particularmente o ATTiny13 e ATTiny85. Eles são muito simples simples do ponto de vista do que ele fazem, apenas ligarem leds por algum tempo e desligar, porém exigem um conhecimento da arquitetura dos processadores, o que para quem está acostumado com linguagens de alto nível não é tão simples assim. Para quem nunca tinha lidado com um datasheet antes, é normal nem saber por onde começar. 
+ O objetivo dos projetos aqui é estudar a linguagem assembly dos chips AVR, particularmente o ATTiny13 e ATTiny85, que são baratos e pequenos e suficientes para pequenos projetos de microeletrônica. Eles são muito simples simples do ponto de vista do que ele fazem, apenas ligarem leds por algum tempo e desligar, porém exigem um conhecimento da arquitetura dos processadores, o que para quem está acostumado com linguagens de alto nível não é tão simples assim. Para quem nunca tinha lidado com um datasheet antes, é normal nem saber por onde começar. 
  
 Em assembly existem algumas formas de fazer um timer conforme o chip, no caso ATTiny85. temos dois temporizadores/contadores de 8 bits. Há duas formas de implementar um timer, uma é utilizando o modo CTC (_Clear Timer on Compare_) onde se realiza um contagem e calcula-se o tempo gasto da contagem de acordo com o clock da CPU, 8MHz no ATTiny85, podendo ser programado para rodar em 16MHz. A outra maneira é usar a técnica de modulação de pulso, PWM, onde gera-se uma onda (sinal) por um determinado tempo para ligar ou desligar o LED, speaker, etc.
 
